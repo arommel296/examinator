@@ -1,21 +1,19 @@
 <?php
-class autocargar{
+class Autocargar{
     private function autocargador($clase){
     $carpeta="";
-    if (file_exists($_SERVER['DOCUMENT_ROOT']."/entidades/".$clase)) {
-        $carpeta=$_SERVER['DOCUMENT_ROOT']."/entidades/".$clase;
-    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/formularios/".$clase)){
-        $carpeta=$_SERVER['DOCUMENT_ROOT']."/formulaios/".$clase;
-    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/helpers/".$clase)){
-        $carpeta=$_SERVER['DOCUMENT_ROOT']."/helpers/".$clase;
-    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/repositorios/".$clase)){
-        $carpeta=$_SERVER['DOCUMENT_ROOT']."/repositorios/".$clase;
-    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/interfaces/".$clase)){
-        $carpeta=$_SERVER['DOCUMENT_ROOT']."/interfaces/".$clase;
-    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/vista/".$clase)){
-        $carpeta=$_SERVER['DOCUMENT_ROOT']."/vista/".$clase;
+    if (file_exists($_SERVER['DOCUMENT_ROOT']."/entidades/".$clase.".php")) {
+        $carpeta=$_SERVER['DOCUMENT_ROOT']."/entidades/".$clase.".php";
+    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/formularios/".$clase.".php")){
+        $carpeta=$_SERVER['DOCUMENT_ROOT']."/formulaios/".$clase.".php";
+    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/helpers/".$clase.".php")){
+        $carpeta=$_SERVER['DOCUMENT_ROOT']."/helpers/".$clase.".php";
+    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/repositorios/".$clase.".php")){
+        $carpeta=$_SERVER['DOCUMENT_ROOT']."/repositorios/".$clase.".php";
+    } else if(file_exists($_SERVER['DOCUMENT_ROOT']."/interfaces/".$clase.".php")){
+        $carpeta=$_SERVER['DOCUMENT_ROOT']."/interfaces/".$clase.".php";
     }
-    require_once $carpeta.$clase.'class.php';
+    require_once $carpeta;
     }
     function autocargar(){
         spl_autoload_register('autocargador');

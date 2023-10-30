@@ -1,4 +1,8 @@
 <?php
+require_once 'autocargar.php';
+$autocargador = new Autocargar();
+$autocargador->autocargar();
+
 class Intento{
     private $id;
     private $fechaInicio;

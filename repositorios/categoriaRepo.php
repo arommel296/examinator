@@ -1,45 +1,39 @@
 <?php
+require_once 'autocargar.php';
+$autocargador = new Autocargar();
+$autocargador->autocargar();
 
 class CategoriaRepo implements methodDB{
     private $conex = Db::conecta();
     private $errores=[];
 
-    // public function __construct() {
-    //     $this->conex = Db::conecta();
-    // }
-
     function findById($id){
         $sql = "SELECT * FROM categoria where id=".$id;
         $result = $this->conex->query($sql);
-
         if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            echo "id: " . $registro["id"]."<br>";
+            return $result->fetch(PDO::FETCH_ASSOC);
         } else {
-            echo "conexion fallida";
+            return null;
         }
-        $categ = "";
     }
     function findAll(){
         $sql = "SELECT * FROM categoria";
         $result = $this->conex->query($sql);
-
         if ($this->conex!=null) {
+            $registros = array();
             while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "id: " . $registro["id"]."<br> nombre: ".$registro["nombre"];
+                $registros[]=$registro;
             }
+            return $registros;
         } else {
-            echo "conexion fallida";
+            return null;
         }
     }
     function deleteById($id){
         $sql = "delete FROM categoria where id=".$id;
-        $result = $this->conex->query($sql);
-
         if ($this->conex!=null) {
             return $this->conex->exec($sql);
         } else {
-            echo "conexion fallida";
             return false;
         }
     }
@@ -49,13 +43,10 @@ class CategoriaRepo implements methodDB{
     function findByName($name){
         $sql = "SELECT * FROM categoria where nombre=".$name;
         $result = $this->conex->query($sql);
-
         if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            return $registro;
+            return $result->fetch(PDO::FETCH_ASSOC);
         } else {
-                echo "conexion fallida";
-                return null;
+            return null;
         }
     }
     function save($object){
@@ -67,23 +58,17 @@ class CategoriaRepo implements methodDB{
     }
     function update($object){
         $sql = "UPDATE categoria set nombre = '$object->nombre' where id=".$object->id;
-        $result = $this->conex->query($sql);
-
         if ($this->conex!=null) {
             return $this->conex->exec($sql);
         } else {
-            echo "conexion fallida";
             return false;
         }
     }
     function insert($object){
         $sql = "INSERT into categoria(nombre) values('$object->nombre')";
-        $result = $this->conex->query($sql);
-
         if ($this->conex!=null) {
             return $this->conex->exec($sql);
         } else {
-            echo "conexion fallida";
             return false;
         }
     }

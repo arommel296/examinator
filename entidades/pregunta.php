@@ -1,4 +1,7 @@
 <?php
+require_once 'autocargar.php';
+$autocargador = new Autocargar();
+$autocargador->autocargar();
 class Pregunta{
     private $id;
     private $enunciado;
