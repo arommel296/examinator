@@ -17,7 +17,21 @@ class Validator{
     }
 
     public static function getErrores(){
-        
+        // var_dump(self::$errores);
+        return self::$errores;
+        if (count(self::$errores)>0){
+            return self::$errores;
+        }else{
+            return null;
+        }
+    }
+
+    public static function getError($clave){
+        if (isset(self::$errores[$clave])) {
+            return self::$errores[$clave];
+        }else{
+            return null;
+        }
     }
 
 }

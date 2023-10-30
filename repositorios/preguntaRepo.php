@@ -11,7 +11,9 @@ class PreguntaRepo implements methodDB{
         $sql = "SELECT * FROM pregunta where id=".$id;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $pregunta = new Pregunta($registro['id'], $registro['enunciado'], $registro['resp1'], $registro['resp2'], $registro['resp3'], $registro['correcta'], $registro['url'], $registro['tipoUrl'], $registro['id_dif'], $registro['id_cat']);
+            return $pregunta;
         } else {
             return null;
         }
@@ -20,11 +22,12 @@ class PreguntaRepo implements methodDB{
         $sql = "SELECT * FROM pregunta";
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            $registros = array();
+            $preguntas = [];
             while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[]=$registro;
+                $pregunta = new Pregunta($registro['id'], $registro['enunciado'], $registro['resp1'], $registro['resp2'], $registro['resp3'], $registro['correcta'], $registro['url'], $registro['tipoUrl'], $registro['id_dif'], $registro['id_cat']);
+                $preguntas[] = $pregunta;
             }
-            return $registros;
+            return $preguntas;
         } else {
             return null;
         }
@@ -40,15 +43,7 @@ class PreguntaRepo implements methodDB{
     function delete($object){
         return $this->deleteById($object->id);
     }
-    function findByEnunciado($enunciado){
-        $sql = "SELECT * FROM pregunta where enunciado=".$enunciado;
-        $result = $this->conex->query($sql);
-        if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return null;
-        }
-    }
+    
     function save($object){
         if(isset($object->id)){
             return $this->update($object);

@@ -11,7 +11,9 @@ class IntentoRepo implements methodDB{
         $sql = "SELECT * FROM intento where id=".$id;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $intento = new Intento($registro['id'], $registro['fechaInicio'], $registro['jsonP'], $registro['id_exam'], $registro['id_user']);
+            return $intento;
         } else {
             return null;
         }
@@ -20,11 +22,12 @@ class IntentoRepo implements methodDB{
         $sql = "SELECT * FROM intento";
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            $registros = array();
+            $intentos = [];
             while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[]=$registro;
+                $intento = new Intento($registro['id'], $registro['fechaInicio'], $registro['jsonP'], $registro['id_exam'], $registro['id_user']);
+                $intentos[] = $intento;
             }
-            return $registros;
+            return $intentos;
         } else {
             return null;
         }
@@ -40,15 +43,7 @@ class IntentoRepo implements methodDB{
     function delete($object){
         return $this->deleteById($object->id);
     }
-    function findByFechaInicio($fechaInicio){
-        $sql = "SELECT * FROM intento where fechaInicio=".$fechaInicio;
-        $result = $this->conex->query($sql);
-        if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return null;
-        }
-    }
+    
     function save($object){
         if(isset($object->id)){
             return $this->update($object);

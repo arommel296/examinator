@@ -5,19 +5,19 @@ $autocargador->autocargar();
 // class sesion con todas las funciones estáticas
 
 class Session{
-    function iniciaSesion(){
+    static function iniciaSesion(){
         session_start();
     }
     
-    function cierraSesion(){
+    static function cierraSesion(){
         session_destroy();
     }
     
-    function guardaSesion($clave,$valor){
+    static function guardaSesion($clave,$valor){
         $_SESSION[$clave] = $valor;
     }
     
-    function leerSesion($clave){
+    static function leerSesion($clave){
         if (isset($_SESSION[$clave])) {
             return $_SESSION[$clave];
         } else {
@@ -25,7 +25,8 @@ class Session{
         }
     }
     
-    function existeValor($clave){
+    static function existeValor($clave){
+        $user=null;
         if (isset($_SESSION[$clave])){
             $user=$_SESSION[$clave];
         }

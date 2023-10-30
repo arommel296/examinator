@@ -11,7 +11,9 @@ class CategoriaRepo implements methodDB{
         $sql = "SELECT * FROM categoria where id=".$id;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $categoria = new Categoria($registro['id'], $registro['nombre']);
+            return $categoria;
         } else {
             return null;
         }
@@ -20,15 +22,17 @@ class CategoriaRepo implements methodDB{
         $sql = "SELECT * FROM categoria";
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            $registros = array();
+            $categorias = [];
             while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[]=$registro;
+                $categoria = new Categoria($registro['id'], $registro['nombre']);
+                $categorias[] = $categoria;
             }
-            return $registros;
+            return $categorias;
         } else {
             return null;
         }
     }
+    
     function deleteById($id){
         $sql = "delete FROM categoria where id=".$id;
         if ($this->conex!=null) {
@@ -44,7 +48,9 @@ class CategoriaRepo implements methodDB{
         $sql = "SELECT * FROM categoria where nombre=".$name;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $categoria = new Categoria($registro['id'], $registro['nombre']);
+            return $categoria;
         } else {
             return null;
         }

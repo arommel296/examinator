@@ -4,16 +4,16 @@ $autocargador = new Autocargar();
 $autocargador->autocargar();
 // class login con todas las funciones estáticas
 class Login {
-    function login(){
-        iniciaSesion();
+    static function login(){
+        Session::iniciaSesion();
         $_SESSION['user']=$_POST['usuario'];
     }
     
-    function logout(){
-        cierraSesion();
+    static function logout(){
+        Session::cierraSesion();
     }
     
-    function estaLogeado(){
-        return existeValor('user');
+    static function estaLogeado(){
+        return Session::existeValor('user');
     }
 }

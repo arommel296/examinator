@@ -11,7 +11,9 @@ class DificultadRepo implements methodDB{
         $sql = "SELECT * FROM dificultad where id=".$id;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $dificultad = new Dificultad($registro['id'], $registro['nombre']);
+            return $dificultad;
         } else {
             return null;
         }
@@ -20,11 +22,12 @@ class DificultadRepo implements methodDB{
         $sql = "SELECT * FROM dificultad";
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            $registros = array();
+            $dificultades = [];
             while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[]=$registro;
+                $dificultad = new Dificultad($registro['id'], $registro['nombre']);
+                $dificultades[] = $dificultad;
             }
-            return $registros;
+            return $dificultades;
         } else {
             return null;
         }
@@ -44,7 +47,9 @@ class DificultadRepo implements methodDB{
         $sql = "SELECT * FROM dificultad where nombre=".$name;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $dificultad = new Dificultad($registro['id'], $registro['nombre']);
+            return $dificultad;
         } else {
             return null;
         }

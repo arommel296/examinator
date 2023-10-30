@@ -11,7 +11,9 @@ class ExamenRepo implements methodDB{
         $sql = "SELECT * FROM examen where id=".$id;
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
+            $registro = $result->fetch(PDO::FETCH_ASSOC);
+            $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
+            return $examen;
         } else {
             return null;
         }
@@ -20,11 +22,12 @@ class ExamenRepo implements methodDB{
         $sql = "SELECT * FROM examen";
         $result = $this->conex->query($sql);
         if ($this->conex!=null) {
-            $registros = array();
+            $examenes = [];
             while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
-                $registros[]=$registro;
+                $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
+                $examenes[] = $examen;
             }
-            return $registros;
+            return $examenes;
         } else {
             return null;
         }
@@ -40,15 +43,7 @@ class ExamenRepo implements methodDB{
     function delete($object){
         return $this->deleteById($object->id);
     }
-    function findByFechaInicio($fechaInicio){
-        $sql = "SELECT * FROM examen where fechaInicio=".$fechaInicio;
-        $result = $this->conex->query($sql);
-        if ($this->conex!=null) {
-            return $result->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return null;
-        }
-    }
+    
     function save($object){
         if(isset($object->id)){
             return $this->update($object);
@@ -57,7 +52,10 @@ class ExamenRepo implements methodDB{
         }
     }
     function update($object){
-        $sql = "UPDATE examen set fechaInicio = '$object->fechaInicio', id_creador = '$object->id_creador' where id=".$object->id;
+        $fechaInicio = date('Y-m-d H:i:s', strtotime($object->fechaInicio));
+        
+        $sql = "UPDATE examen set fechaInicio = '$fechaInicio', id_creador = '$object->id_creador' where id=".$object->id;
+        
         if ($this->conex!=null) {
             return $this->conex->exec($sql);
         } else {
@@ -65,7 +63,10 @@ class ExamenRepo implements methodDB{
         }
     }
     function insert($object){
-        $sql = "INSERT into examen(fechaInicio, id_creador) values('$object->fechaInicio', '$object->id_creador')";
+        $fechaInicio = date('Y-m-d H:i:s', strtotime($object->fechaInicio));
+        
+        $sql = "INSERT into examen(fechaInicio, id_creador) values('$fechaInicio', '$object->id_creador')";
+        
         if ($this->conex!=null) {
             return $this->conex->exec($sql);
         } else {
