@@ -1,7 +1,5 @@
 <?php
-require_once 'autocargar.php';
-$autocargador = new Autocargar();
-$autocargador->autocargar();
+//require_once 'autocargar.php';
 // class sesion con todas las funciones estáticas
 
 class Session{

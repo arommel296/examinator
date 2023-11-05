@@ -13,4 +13,30 @@ class Examen{
         $this->fechaInicio = $fechaInicio;
         $this->id_creador = $id_creador;
     }
+
+    // Getters
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getFechaInicio() {
+        return $this->fechaInicio;
+    }
+
+    public function getId_creador() {
+        return $this->id_creador;
+    }
+
+    // Setters
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setFechaInicio($fechaInicio) {
+        $this->fechaInicio = $fechaInicio;
+    }
+
+    public function setId_creador($id_creador) {
+        $this->id_creador = $id_creador;
+    }
 }

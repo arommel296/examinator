@@ -1,7 +1,6 @@
 <?php
-require_once 'autocargar.php';
-$autocargador = new Autocargar();
-$autocargador->autocargar();
+//require_once 'autocargar.php';
+
 class Db{
     private static $conexion=null;
     private static $host = 'localhost';

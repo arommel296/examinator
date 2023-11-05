@@ -1,7 +1,6 @@
 <?php
-require_once 'autocargar.php';
-$autocargador = new Autocargar();
-$autocargador->autocargar();
+//require_once 'autocargar.php';
+
 interface methodDB{
     public function findById($id);
     public function findAll();

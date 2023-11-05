@@ -1,7 +1,8 @@
 <?php
-require_once 'autocargar.php';
-$autocargador = new Autocargar();
-$autocargador->autocargar();
+//require_once 'autocargar.php';
+require_once '../entidades/usuario.php';
+require_once '../interfaces/dbInterface.php';
+require_once 'db.php';
 
 class UsuarioRepo implements methodDB{
 
@@ -9,35 +10,47 @@ class UsuarioRepo implements methodDB{
     // private $result;
     private $conex;
 
-    function findById($id){
-        $sql = "SELECT * FROM usuario where id=".$id;
-        $result = $this->conex->query($sql);
-        if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-            return $usuario;
-        } else {
-            return null;
-        }
+    public function __construct() {
+        $this->conex = Db::conecta(); 
     }
+
+    function findById($id){
+        $sql = "SELECT * FROM usuario WHERE id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        if ($this->conex!=null) {
+            $registro = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($registro) {
+                $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
+            return $usuario;
+            }
+        }
+        return null;
+    }
+    
     function findAll(){
         $sql = "SELECT * FROM usuario";
-        $result = $this->conex->query($sql);
+        $statement = $this->conex->prepare($sql);
+        $statement->execute();
         if ($this->conex!=null) {
             $usuarios = [];
-            while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
+            while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
                 $usuarios[] = $usuario;
             }
             return $usuarios;
-        } else {
-            return null;
         }
+        return null;
     }
+    
     function deleteById($id){
-        $sql = "delete FROM usuario where id=".$id;
+        $sql = "delete FROM usuario where id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
@@ -46,16 +59,20 @@ class UsuarioRepo implements methodDB{
         return $this->deleteById($object->id);
     }
     function findByName($name){
-        $sql = "SELECT * FROM usuario where nombre='".$name."'";
-        $result = $this->conex->query($sql);
+        $sql = "SELECT * FROM usuario WHERE nombre=:nombre";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':nombre', $name);
+        $statement->execute();
         if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-            return $usuario;
-        } else {
-            return null;
-        }
+            $registro = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($registro){
+                $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
+                return $usuario;
+            }
+        } 
+        return null; //devuelve null solo si no hay conexión y si no se encuentra un registro con el nombre proporcionado en la base de datos
     }
+
     function save($object){
         if(isset($object->id)){
             return $this->update($object);
@@ -63,18 +80,33 @@ class UsuarioRepo implements methodDB{
             return $this->insert($object);
         }
     }
+
     function update($object){
-        $sql = "UPDATE usuario set nombre = '$object->nombre', password = '$object->password', rol = '$object->rol', foto = '$object->foto' where id=".$object->id;
+        $sql = "UPDATE usuario set nombre = :nombre, password = :password, rol = :rol, foto = :foto where id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':nombre', $object->nombre);
+        $statement->bindParam(':password', $object->password);
+        $statement->bindParam(':rol', $object->rol);
+        $statement->bindParam(':foto', $object->foto);
+        $statement->bindParam(':id', $object->id);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
     }
+    
     function insert($object){
-        $sql = "INSERT into usuario(nombre, password, rol, foto) values('$object->nombre', '$object->password', '$object->rol', '$object->foto')";
+        $sql = "INSERT into usuario(nombre, password, rol, foto) values(:nombre, :password, :rol, :foto)";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':nombre', $object->getNombre);
+        $statement->bindParam(':password', $object->getPassword);
+        $statement->bindParam(':rol', $object->getRol);
+        $statement->bindParam(':foto', $object->getFoto);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }

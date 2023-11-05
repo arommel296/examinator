@@ -1,41 +1,48 @@
 <?php
 require_once 'autocargar.php';
-$autocargador = new Autocargar();
-$autocargador->autocargar();
+
 //include_once '\interfaces\dbInterface.php';
 class ExamenRepo implements methodDB{
     private $conex = Db::conecta();
     private $errores=[];
 
     function findById($id){
-        $sql = "SELECT * FROM examen where id=".$id;
-        $result = $this->conex->query($sql);
+        $sql = "SELECT * FROM examen WHERE id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
         if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
-            return $examen;
-        } else {
-            return null;
+            $registro = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($registro){
+                $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
+                return $examen;
+            }
         }
+        return null;
     }
+    
     function findAll(){
         $sql = "SELECT * FROM examen";
-        $result = $this->conex->query($sql);
+        $statement = $this->conex->prepare($sql);
+        $statement->execute();
         if ($this->conex!=null) {
             $examenes = [];
-            while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
+            while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
                 $examenes[] = $examen;
             }
             return $examenes;
-        } else {
-            return null;
         }
+        return null;
     }
+    
     function deleteById($id){
-        $sql = "delete FROM examen where id=".$id;
+        $sql = "delete FROM examen where id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
@@ -51,27 +58,37 @@ class ExamenRepo implements methodDB{
             return $this->insert($object);
         }
     }
+    
     function update($object){
         $fechaInicio = date('Y-m-d H:i:s', strtotime($object->fechaInicio));
         
-        $sql = "UPDATE examen set fechaInicio = '$fechaInicio', id_creador = '$object->id_creador' where id=".$object->id;
-        
+        $sql = "UPDATE examen set fechaInicio = :fechaInicio, id_creador = :id_creador where id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':fechaInicio', $fechaInicio);
+        $statement->bindParam(':id_creador', $object->id_creador);
+        $statement->bindParam(':id', $object->id);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
     }
+    
     function insert($object){
         $fechaInicio = date('Y-m-d H:i:s', strtotime($object->fechaInicio));
         
-        $sql = "INSERT into examen(fechaInicio, id_creador) values('$fechaInicio', '$object->id_creador')";
-        
+        $sql = "INSERT into examen(fechaInicio, id_creador) values(:fechaInicio, :id_creador)";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':fechaInicio', $fechaInicio);
+        $statement->bindParam(':id_creador', $object->id_creador);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
     }
+    
 
 }

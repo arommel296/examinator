@@ -17,4 +17,46 @@ class Intento{
         $this->id_exam = $id_exam;
         $this->id_user = $id_user;
     }
+
+    // Getters
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getFechaInicio() {
+        return $this->fechaInicio;
+    }
+
+    public function getJsonP() {
+        return $this->jsonP;
+    }
+
+    public function getId_exam() {
+        return $this->id_exam;
+    }
+
+    public function getId_user() {
+        return $this->id_user;
+    }
+
+    // Setters
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setFechaInicio($fechaInicio) {
+        $this->fechaInicio = $fechaInicio;
+    }
+
+    public function setJsonP($jsonP) {
+        $this->jsonP = $jsonP;
+    }
+
+    public function setId_exam($id_exam) {
+        $this->id_exam = $id_exam;
+    }
+
+    public function setId_user($id_user) {
+        $this->id_user = $id_user;
+    }
 }

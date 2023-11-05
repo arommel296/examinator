@@ -1,7 +1,5 @@
 <?php
 require_once 'autocargar.php';
-$autocargador = new Autocargar();
-$autocargador->autocargar();
 
 class CategoriaRepo implements methodDB{
     private $conex = Db::conecta();
@@ -9,52 +7,65 @@ class CategoriaRepo implements methodDB{
 
     function findById($id){
         $sql = "SELECT * FROM categoria where id=".$id;
-        $result = $this->conex->query($sql);
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
         if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            $categoria = new Categoria($registro['id'], $registro['nombre']);
-            return $categoria;
-        } else {
-            return null;
-        }
+            $registro = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($registro) {
+                $categoria = new Categoria($registro['id'], $registro['nombre']);
+                return $categoria;
+            }
+        } 
+        return null;
     }
+
     function findAll(){
         $sql = "SELECT * FROM categoria";
-        $result = $this->conex->query($sql);
+        $statement = $this->conex->prepare($sql);
+        $statement->execute();
         if ($this->conex!=null) {
             $categorias = [];
-            while($registro = $result->fetch(PDO::FETCH_ASSOC)) {
+            while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $categoria = new Categoria($registro['id'], $registro['nombre']);
                 $categorias[] = $categoria;
             }
             return $categorias;
-        } else {
-            return null;
         }
+        return null;
     }
     
     function deleteById($id){
-        $sql = "delete FROM categoria where id=".$id;
+        $sql = "delete FROM categoria where id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
     }
+
     function delete($object){
         return $this->deleteById($object->id);
     }
+
     function findByName($name){
-        $sql = "SELECT * FROM categoria where nombre=".$name;
-        $result = $this->conex->query($sql);
+        $sql = "SELECT * FROM categoria where nombre=:nombre";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':nombre', $name);
+        $statement->execute();
         if ($this->conex!=null) {
-            $registro = $result->fetch(PDO::FETCH_ASSOC);
-            $categoria = new Categoria($registro['id'], $registro['nombre']);
-            return $categoria;
-        } else {
-            return null;
+            $registro = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($registro){
+                $categoria = new Categoria($registro['id'], $registro['nombre']);
+                return $categoria;
+            }   
         }
+        return null;
     }
+
     function save($object){
         if(isset($object->id)){
             return $this->update($object);
@@ -62,18 +73,27 @@ class CategoriaRepo implements methodDB{
             return $this->insert($object);
         }
     }
+    
     function update($object){
-        $sql = "UPDATE categoria set nombre = '$object->nombre' where id=".$object->id;
+        $sql = "UPDATE categoria set nombre = :nombre where id=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':nombre', $object->nombre);
+        $statement->bindParam(':id', $object->id);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
     }
+    
     function insert($object){
-        $sql = "INSERT into categoria(nombre) values('$object->nombre')";
+        $sql = "INSERT into categoria(nombre) values(:nombre)";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':nombre', $object->nombre);
+        $statement->execute();
         if ($this->conex!=null) {
-            return $this->conex->exec($sql);
+            return $statement->rowCount();
         } else {
             return false;
         }
