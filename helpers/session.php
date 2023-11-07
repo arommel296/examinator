@@ -1,6 +1,7 @@
 <?php
 //require_once 'autocargar.php';
 // class sesion con todas las funciones estáticas
+require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class Session{
     static function iniciaSesion(){

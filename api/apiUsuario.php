@@ -1,9 +1,22 @@
 <?php
 //require_once '../helpers/autocargar.php';
-require_once '../helpers/login.php';
-require_once '../helpers/session.php';
-require_once '../repositorios/usuarioRepo.php';
-require_once '../entidades/usuario.php';
+// require_once '../helpers/login.php';
+// require_once '../helpers/session.php';
+// require_once '../repositorios/usuarioRepo.php';
+// require_once '../entidades/usuario.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
+
+class ApiUsuario{
+
+    static function loginUsuario() {
+        
+    }
+
+    static function registroUsuario() {
+        
+    }
+
+}
 // Comprobación para ver si el usuario está logueado
 if (!(Login::estaLogeado())) {
     // Si el usuario no está logueado, devuelve un error y termina la ejecución

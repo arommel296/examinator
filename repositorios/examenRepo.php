@@ -1,5 +1,5 @@
 <?php
-require_once 'autocargar.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 //include_once '\interfaces\dbInterface.php';
 class ExamenRepo implements methodDB{

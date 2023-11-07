@@ -1,8 +1,8 @@
 <?php
-//require_once 'autocargar.php';
-require_once '../entidades/usuario.php';
-require_once '../interfaces/dbInterface.php';
-require_once 'db.php';
+// require_once '../entidades/usuario.php';
+// require_once '../interfaces/dbInterface.php';
+// require_once 'db.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class UsuarioRepo implements methodDB{
 

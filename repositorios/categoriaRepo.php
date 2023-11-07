@@ -1,12 +1,13 @@
 <?php
-require_once 'autocargar.php';
+// require_once 'autocargar.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class CategoriaRepo implements methodDB{
     private $conex = Db::conecta();
     private $errores=[];
 
     function findById($id){
-        $sql = "SELECT * FROM categoria where id=".$id;
+        $sql = "SELECT * FROM categoria where id=:id";
         $statement = $this->conex->prepare($sql);
         $statement->bindParam(':id', $id);
         $statement->execute();

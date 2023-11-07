@@ -1,5 +1,8 @@
 <?php
-require_once 'autocargar.php';
+//require_once 'autocargar.php';
+
+$carpeta=$_SERVER['DOCUMENT_ROOT'];
+echo $carpeta;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['usuario']) && isset($_POST['password'])) {

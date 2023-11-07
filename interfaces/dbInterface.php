@@ -1,5 +1,6 @@
 <?php
 //require_once 'autocargar.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 interface methodDB{
     public function findById($id);
