@@ -14,6 +14,7 @@ class DificultadRepo implements methodDB{
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
             if ($registro) {
                 $dificultad = new Dificultad($registro['id'], $registro['nombre']);
+                echo json_encode($dificultad);
                 return $dificultad;
             }   
         }
@@ -30,8 +31,10 @@ class DificultadRepo implements methodDB{
                 $dificultad = new Dificultad($registro['id'], $registro['nombre']);
                 $dificultades[] = $dificultad;
             }
+            echo json_encode($dificultades);
             return $dificultades;
         }
+        echo json_encode(null);
         return null;
     }
     
@@ -60,9 +63,11 @@ class DificultadRepo implements methodDB{
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
             if ($registro) {
                 $dificultad = new Dificultad($registro['id'], $registro['nombre']);
+                echo json_encode($dificultad);
                 return $dificultad;
             }
         }
+        echo json_encode(null);
         return null;
     }
 

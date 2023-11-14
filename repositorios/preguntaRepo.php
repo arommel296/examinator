@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
+//require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class PreguntaRepo implements methodDB{
     private $conex = Db::conecta();
@@ -26,13 +26,20 @@ class PreguntaRepo implements methodDB{
         $statement->execute();
         if ($this->conex!=null) {
             $preguntas = [];
-            while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
-                $pregunta = new Pregunta($registro['id'], $registro['enunciado'], $registro['resp1'], $registro['resp2'], $registro['resp3'], $registro['correcta'], $registro['url'], $registro['tipoUrl'], $registro['id_dif'], $registro['id_cat']);
-                $preguntas[] = $pregunta;
-            }
-            return $preguntas;
+            $registro = $statement->fetchAll(PDO::FETCH_ASSOC);
+            // while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
+            //     $pregunta = new Pregunta($registro['id'], $registro['enunciado'], $registro['resp1'], $registro['resp2'], $registro['resp3'], $registro['correcta'], $registro['url'], $registro['tipoUrl'], $registro['id_dif'], $registro['id_cat']);
+            //     $preguntas[] = $pregunta;
+            // }
+            //echo json_encode($preguntas);
+            return $registro;
         }
+        echo json_encode(null);
         return null;
+    }
+
+    function findByName($name) {
+        //Si no lo pongo me da error.
     }
     
     function deleteById($id){

@@ -26,4 +26,8 @@ class Categoria{
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
+
+    public function toJSON(){
+        return json_encode(get_object_vars($this));
+    }
 }

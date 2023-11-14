@@ -14,6 +14,7 @@ class IntentoRepo implements methodDB{
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
             if ($registro){
                 $intento = new Intento($registro['id'], $registro['fechaInicio'], $registro['jsonP'], $registro['id_exam'], $registro['id_user']);
+                echo json_encode($intento);
                 return $intento;
             }
         }
@@ -30,6 +31,7 @@ class IntentoRepo implements methodDB{
                 $intento = new Intento($registro['id'], $registro['fechaInicio'], $registro['jsonP'], $registro['id_exam'], $registro['id_user']);
                 $intentos[] = $intento;
             }
+            echo json_encode($intentos);
             return $intentos;
         } 
         return null;
@@ -47,6 +49,10 @@ class IntentoRepo implements methodDB{
         }
     }
     
+    function findByName($name) {
+        //Si no lo pongo me da error.
+    }
+
     function delete($object){
         return $this->deleteById($object->id);
     }

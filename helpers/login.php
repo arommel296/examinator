@@ -1,13 +1,19 @@
 <?php
 //require_once 'autocargar.php';
-require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
+//require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 // class login con todas las funciones estáticas
 class Login {
-    static function login(){
+    static function login($a){
         Session::iniciaSesion();
-        $_SESSION['user']=$_POST['usuario'];
+        echo 'w';
+        echo '<script>console.log('.$a.');</script>';
+        $_SESSION['usuario']=$a;
     }
     
+    static function guardaUsuario(){
+        $_SESSION['usuario']=$_POST['usuario'];
+    }
+
     static function logout(){
         Session::cierraSesion();
     }

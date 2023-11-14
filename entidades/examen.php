@@ -37,4 +37,8 @@ class Examen{
     public function setId_creador($id_creador) {
         $this->id_creador = $id_creador;
     }
+
+    public function toJSON(){
+        return json_encode(get_object_vars($this));
+    }
 }

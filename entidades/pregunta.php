@@ -106,4 +106,8 @@ class Pregunta{
     public function setId_cat($id_cat) {
         $this->id_cat = $id_cat;
     }
+
+    public function toJSON(){
+        return json_encode(get_object_vars($this));
+    }
 }

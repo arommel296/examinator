@@ -15,12 +15,18 @@ class ExamenRepo implements methodDB{
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
             if ($registro){
                 $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
+                echo json_encode($examen);
                 return $examen;
             }
         }
+        echo json_encode(null);
         return null;
     }
     
+    function findByName($name) {
+        //Si no lo pongo me da error.
+    }
+
     function findAll(){
         $sql = "SELECT * FROM examen";
         $statement = $this->conex->prepare($sql);
@@ -31,8 +37,10 @@ class ExamenRepo implements methodDB{
                 $examen = new Examen($registro['id'], $registro['fechaInicio'], $registro['id_creador']);
                 $examenes[] = $examen;
             }
+            echo json_encode($examenes);
             return $examenes;
         }
+        echo json_encode(null);
         return null;
     }
     

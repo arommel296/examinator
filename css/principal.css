@@ -1,0 +1,117 @@
+/* header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div p a{
+    background-color: azure;
+    color: rgb(161, 145, 255);
+    padding: 0.2em 0.5em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 3.6emp;
+    border-radius: 1px;
+} */
+
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+header div p{
+    grid-column: auto;
+}
+
+#cuerpo{
+    display: grid;
+    grid-template-columns: 60%;
+}
+
+.botabla{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3em; /* Ajusta este valor para cambiar el espacio entre los elementos y los márgenes de la pantalla */
+    background-color: rgb(150, 150, 255); /* Color de fondo azul */
+}
+
+header a {
+    text-decoration: none; /* Elimina la apariencia de enlace */
+}
+
+header div{
+    display: flex;
+    flex-direction: column; /* Coloca los enlaces uno encima del otro */
+    justify-content: flex-end;
+}
+
+/* header div a {
+    /* display: inline-block; */
+    /*padding: 0.em 1em; /* algo de padding para darle apariencia de botón */
+    /*background-color: rgb(180, 200, 255); /* Color de fondo blanco */
+    /*color: #000000; /* Color de texto negro */
+    /*border-radius: 0.5em; /* Bordes redondeados */
+    /*margin-bottom: 1em; /* Espacio entre los botones */
+/*} */
+
+header div a:hover {
+    background-color: rgb(94, 137, 194); /* Cambia el color de fondo cuando se pasa el ratón por encima */
+}
+
+/* footer */
+footer {
+    background-color: rgb(180, 200, 255);
+    color: #000;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+
+.social-media img {
+    width: 2em;
+    height: 2em;
+}
+
+#map iframe {
+    width: 16em;
+    height: 8em;
+}
+
+.question-form {
+    width: 15em;
+}
+
+.question-form input[type="text"],
+.question-form textarea {
+    width: 100%;
+    /* padding: 10px; */
+    margin-bottom: 1em;
+}
+
+.question-form input[type="submit"] {
+    background-color: #000;
+    color: #FFF;
+    border: none;
+    /* padding: 10px 20px; */
+    cursor: pointer;
+}
+
+input, textarea {
+    padding: none;
+
+}

@@ -1,0 +1,9 @@
+.hoverMenu{
+    color: black;
+    display: none;
+}
+
+.examinar:hover .hoverMenu{
+    color:brown;
+    display: flex;
+}

@@ -28,7 +28,9 @@ class Session{
         $user=null;
         if (isset($_SESSION[$clave])){
             $user=$_SESSION[$clave];
+            echo $user;
         }
+        echo $user;
         return $user;
     }
 }

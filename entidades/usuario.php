@@ -9,7 +9,7 @@ class Usuario{
     private $rol;
     private $foto;
 
-    public function __construct($id = null, $nombre = null, $password = null, $rol = null, $foto = null) {
+    public function __construct($id = null, $nombre=null, $password=null, $rol = null, $foto = null) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->password = $password;
@@ -57,5 +57,9 @@ class Usuario{
 
     public function setFoto($foto) {
         $this->foto = $foto;
+    }
+
+    public function toJSON(){
+        return json_encode(get_object_vars($this));
     }
 }

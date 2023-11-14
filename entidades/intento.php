@@ -57,4 +57,8 @@ class Intento{
     public function setId_user($id_user) {
         $this->id_user = $id_user;
     }
+
+    public function toJSON(){
+        return json_encode(get_object_vars($this));
+    }
 }
