@@ -2,8 +2,12 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class IntentoRepo implements methodDB{
-    private $conex = Db::conecta();
+    private $conex;
     private $errores=[];
+
+    public function __construct() {
+        $this->conex = Db::conecta(); 
+    }
 
     function findById($id){
         $sql = "SELECT * FROM intento WHERE id=:id";

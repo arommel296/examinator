@@ -25,7 +25,7 @@ header div p{
 
 #cuerpo{
     display: grid;
-    grid-template-columns: 60%;
+    grid-template-columns: 33% 33% 33%;
 }
 
 .botabla{
@@ -114,4 +114,8 @@ footer {
 input, textarea {
     padding: none;
 
+}
+
+.pregunta, .alumno{
+    display: flex;
 }

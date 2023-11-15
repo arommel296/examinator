@@ -1,12 +1,17 @@
+window.addEventListener("load", function () {
 var btnComenzar = document.getElementById("comenzar");
     var divExamen = document.getElementById("examen");
     var btnEliminar = document.getElementById("borrar");
     var btnSiguiente = document.getElementById("siguiente");
     var btnAnterior = document.getElementById("anterior");
-    var btnEnviar = document.querySelector('input[type="submit"]');
+    var btnEnviar = document.getElementById("enviar");
     btnEnviar.style.display="none";
     btnSiguiente.style.display="none";
     btnAnterior.style.display="none";
+
+//<form id="examen" method="post" action="">
+/* <input type="submit" value="Enviar" id="enviar">
+</form> */
 
     btnComenzar.addEventListener("click", comenzar);
     btnAnterior.addEventListener("click", antePreg);
@@ -15,7 +20,7 @@ var btnComenzar = document.getElementById("comenzar");
     //btnBorrar.addEventListener("click", borrar);
 
     function comenzar() {
-        fetch("plantillas/pregunta.html")
+        fetch("plantillas/preguntas.html")
             .then(x => x.text())
             .then(y => {
                 var contenedor = document.createElement("div");
@@ -24,11 +29,11 @@ var btnComenzar = document.getElementById("comenzar");
                 contenedor.innerHTML = y;
                 var pregunta = contenedor.firstChild;
 
-                fetch("servidor/preguntas.json")
+                fetch("http://localhost/DEWESE/examinator/api/apiPregunta.php?menu=examinar")
                     .then(x => x.json())
                     .then(y => {
-                        maxPreg=y.length;
-                        for (let i = 0; i < maxPreg; i++) {
+                        var numPreg=y.length;
+                        for (let i = 0; i < numPreg; i++) {
                             var pregAux = pregunta.cloneNode(true);
                             console.log(pregAux);
                             console.log(pregunta);
@@ -78,8 +83,18 @@ var btnComenzar = document.getElementById("comenzar");
                             
                         }
                     })
-                btnSiguiente.style.display = "";
+                    if (pregunta.previousElementSibling!=null) {
+                        btnSiguiente.style.display="";
+                    }
+                    if (pregunta.nextElementSibling!=null) {
+                        btnAnterior.style.display="";
+                    }
+                    if (pregunta.nextElementSibling==null) {
+                        btnEnviar.style.display="";
+                    }
+                //btnSiguiente.style.display = "";
             })
         btnComenzar.style.display = "none";
         
     }
+})

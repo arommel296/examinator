@@ -46,7 +46,7 @@
 
 <p class='text-center'><a href='?menu=cerrarsesion'>Cerrar sesión</a></p>
 <?php
-Session::iniciaSesion();
+// Session::iniciaSesion();
 $val = new Validacion;
 if (isset($_SESSION['usuario'])) {
     // echo 'holaa';

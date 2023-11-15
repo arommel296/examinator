@@ -3,8 +3,12 @@ require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.ph
 
 //include_once '\interfaces\dbInterface.php';
 class ExamenRepo implements methodDB{
-    private $conex = Db::conecta();
+    private $conex;
     private $errores=[];
+
+    public function __construct() {
+        $this->conex = Db::conecta(); 
+    }
 
     function findById($id){
         $sql = "SELECT * FROM examen WHERE id=:id";

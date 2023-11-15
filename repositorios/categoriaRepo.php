@@ -3,8 +3,12 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class CategoriaRepo implements methodDB{
-    private $conex = Db::conecta();
+    private $conex;
     private $errores=[];
+
+    public function __construct() {
+        $this->conex = Db::conecta(); 
+    }
 
     function findById($id){
         $sql = "SELECT * FROM categoria where id=:id";
@@ -26,12 +30,15 @@ class CategoriaRepo implements methodDB{
         $statement = $this->conex->prepare($sql);
         $statement->execute();
         if ($this->conex!=null) {
-            $categorias = [];
-            while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
-                $categoria = new Categoria($registro['id'], $registro['nombre']);
-                $categorias[] = $categoria;
-            }
-            return $categorias;
+            $registro = $statement->fetchAll(PDO::FETCH_ASSOC);
+            // while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
+            //     $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
+            //     $usuarios[] = $usuario;
+            //     //->toJSON();
+            // }
+            
+            //echo json_encode($usuarios);
+            return $registro;
         }
         return null;
     }
