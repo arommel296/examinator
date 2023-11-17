@@ -13,27 +13,28 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             }
             header('Content-Type: application/json');
             echo json_encode($preguntas);
-
         }
     }
 }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_POST)) {
-        $id = $_POST['id'];
-        $enunciado = $_POST['enunciado'];
-        $resp1 = $_POST['resp1'];
-        $resp2 = $_POST['resp2'];
-        $resp3 = $_POST['resp3'];
-        $correcta = $_POST['correcta'];
-        $url = $_POST['url'];
-        $tipoUrl = $_POST['tipoUrl'];
-        $id_cat = $_POST['id_cat'];
-        $id_dif = $_POST['id_dif'];
+        $datosPreg=file_get_contents("php://input");
+        $pregunta=json_decode($datosPreg, true);
+        $id = $pregunta['id'];
+        $enunciado = $pregunta['enunciado'];
+        $resp1 = $pregunta['resp1'];
+        $resp2 = $pregunta['resp2'];
+        $resp3 = $pregunta['resp3'];
+        $correcta = $pregunta['correcta'];
+        $url = $pregunta['url'];
+        $tipoUrl = $pregunta['tipoUrl'];
+        $id_cat = $pregunta['id_cat'];
+        $id_dif = $pregunta['id_dif'];
 
-        $pregunta = new Pregunta($id, $enunciado, $resp1, $resp2, $resp3, $correcta, $url, $tipoUrl, $id_cat, $id_dif);
+        $preguntaG = new Pregunta($id, $enunciado, $resp1, $resp2, $resp3, $correcta, $url, $tipoUrl, $id_dif, $id_cat);
 
-        $resultado = $repo->save($pregunta);
+        $resultado = $repo->save($preguntaG);
         header('Content-Type: application/json');
-        echo json_encode($pregunta);
+        echo '{"respuesta":"200"}';
     }
 } elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
 
@@ -41,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET)) {
         $id = $_GET["id"];
         $respuesta = $repo->deleteById($id);
-        echo '{"respuesta":"OK"}';
+        echo '{"respuesta":"200"}';
     } else{
         echo '{"respuesta":"F"}';
     }

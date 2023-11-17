@@ -5,11 +5,11 @@ function cargaPregunta(pregunta) {
     formulario.querySelector("#resp1").value = pregunta.resp1;
     formulario.querySelector("#resp2").value = pregunta.resp2;
     formulario.querySelector("#resp3").value = pregunta.resp3;
+    var categorias=formulario.querySelector("#categoria").value = pregunta.id_cat;
+    var dificultades=formulario.querySelector("#dificultad").value = pregunta.id_dif;
     var respuestas=[pregunta.resp1,pregunta.resp2, pregunta.resp3];
     var ids=["#op1","#op2","#op3"];
-    // respuestas.forEach(element => {
-    //     formulario.createElement("option");
-    // });
+
     for (let i = 0; i < respuestas.length; i++) {
         formulario.querySelector(ids[i]).text=respuestas[i];
         formulario.querySelector(ids[i]).value=respuestas[i];
@@ -46,9 +46,11 @@ function limpiaPregunta() {
     formulario.querySelector("#resp1").value = "";
     formulario.querySelector("#resp2").value = "";
     formulario.querySelector("#resp3").value = "";
-    formulario.querySelector("#correcta").value = "";//
+    formulario.querySelector("#correcta").value = "";
     formulario.querySelector("#url").value = "";
     formulario.querySelector("#tipoUrl").value = "";
+    formulario.querySelector("#categoria").value = "";
+    formulario.querySelector("#dificultad").value = "";
 }
 
 function borraPregunta() {
@@ -76,17 +78,21 @@ function guardaPregunta() {
     var resp2=formulario.querySelector("#resp2");
     var resp3=formulario.querySelector("#resp3");
     var correcta=formulario.querySelector("#correcta");
+    var categoria=formulario.querySelector("#categoria");
+    var dificultad=formulario.querySelector("#dificultad");
     var url=formulario.querySelector("#url");
     var tipoUrl=formulario.querySelector("#tipoUrl");
     var preg;
     if (idPreg.value!="") {
         preg={
-            "idPreg": idPreg.value,
+            "id": idPreg.value,
             "enunciado": enunciado.value,
             "resp1": resp1.value,
             "resp2": resp2.value,
             "resp3": resp3.value,
             "correcta": correcta.value,
+            "id_cat": categoria.value,
+            "id_dif": dificultad.value,
             "url": url.value,
             "tipoUrl": tipoUrl.value
         };
@@ -97,6 +103,8 @@ function guardaPregunta() {
         "resp2": resp2.value,
         "resp3": resp3.value,
         "correcta": correcta.value,
+        "id_cat": categoria.value,
+        "id_dif": dificultad.value,
         "url": url.value,
         "tipoUrl": tipoUrl.value
         };
@@ -111,7 +119,6 @@ function guardaPregunta() {
                 'Content-Type': 'application/json'
             }
         })
-        .then(x => x.text())
         .then(y => {
     
             refrescaPreguntas();
@@ -169,14 +176,14 @@ async function refrescaCategorias() {
 }
 
 async function refrescaDificultades() {
-    var categorias = document.getElementById("dificultad");
+    var dificultades = document.getElementById("dificultad");
     const d=await fetch("http://localhost/DEWESE/examinator/api/ApiDificultad.php?menu=examinar")
         const a=await d.json()
             for (let i = 0; i < a.length; i++) {
                 var option = document.createElement("option");
                 console.log(a[i]);
                 option.value = a[i].id;  
-                option.text = a[i].nombreDif;
-                categorias.add(option);
+                option.text = a[i].nombre;
+                dificultades.add(option);
             };
 }

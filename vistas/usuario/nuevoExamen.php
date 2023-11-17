@@ -11,7 +11,6 @@ $columnaIzq='<div><h1>Nuevo Examen</h1>
     <a href="?menu=examen">Comenzar</a></div>';
 $columnaCentro='<div id="preguntas"></div>';
 $columnaDcha='<div id="alumnos"></div>';
-// Session::iniciaSesion();
 $val = new Validacion;
 if (isset($_SESSION['usuario'])) {
     if ($_GET['menu'] == "nuevoExamen") {

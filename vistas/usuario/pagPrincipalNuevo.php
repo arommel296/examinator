@@ -1,5 +1,7 @@
-    <h1>Mis Exámenes</h1>
-    <h2>Exámenes Pendientes</h2>
+<h1>Mis Exámenes</h1>
+    <div class="main-container">
+    <div class="table-container">
+    <div class="title-table">Exámenes Pendientes</div>
     <table>
         <!-- <thead>
             <tr>
@@ -15,8 +17,9 @@
             <!-- Añade más filas según sea necesario -->
         </tbody>
     </table>
-
-    <h2>Exámenes Realizados</h2>
+    </div>
+    <div class="table-container">
+        <div class="title-table">Exámenes Realizados</div>
     <table>
         <!-- <thead>
             <tr>
@@ -41,7 +44,8 @@
             </tr>
         </tbody>
     </table>
-
+    </div>
+</div>
 <p class='text-center'><a href='?menu=cerrarsesion'>Cerrar sesión</a></p>
 <?php
 // Session::iniciaSesion();

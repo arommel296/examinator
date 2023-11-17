@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/principal.css">
     <link rel="stylesheet" href="./css/loginRegistro.css">
+    <!-- <link rel="stylesheet" href="./css/nuevoExamen.css"> -->
     <script src="./js/preguntas.js"></script>
     <script src="./js/nuevaPregunta.js"></script>
     <script src="./js/cargaAlumnos.js"></script>
-    <script src="./js/cargaPreguntas.js"></script>
-    <script src="./js/cargaCategorias.js"></script>
+    <!-- <script src="./js/cargaPreguntas.js"></script>
+    <script src="./js/cargaCategorias.js"></script> -->
+    <script src="./js/realizaExamen.js"></script>
     <!-- <link rel="stylesheet" href="./css/estilos.css"> -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -33,7 +35,7 @@
         require_once './vistas/principal/header.php';
     ?>
     <section>
-        <div id="cuerpo">
+        <div id="cuerpo" class="cuerpo2 cuerpo3">
         <?php
            require_once './vistas/principal/Enrutador.php';
            Enrutador::enruta();

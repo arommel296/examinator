@@ -84,7 +84,7 @@ class UsuarioRepo implements methodDB{
         return $this->deleteById($object->id);
     }
     function findByName($nombre){
-        echo '<script>console.log('.$nombre.');</script>';
+        //echo '<script>console.log('.$nombre.');</script>';
         $sql = "SELECT * FROM usuario WHERE nombre LIKE :nombre";
         $statement = $this->conex->prepare($sql);
         $statement->bindParam(':nombre', $nombre);
@@ -92,11 +92,12 @@ class UsuarioRepo implements methodDB{
         if ($this->conex!=null) {
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
             //echo '<script>console.log('.$registro.');</script>';
-            if ($registro){
-                $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-                echo json_encode($usuario);
-                return $usuario;
-            }
+            // if ($registro){
+            //     $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
+            //     echo json_encode($usuario);
+            //     return $usuario;
+            // }
+            return $registro;
         } 
         echo json_encode(null);
         return null; //devuelve null solo si no hay conexión y si no se encuentra un registro con el nombre proporcionado en la base de datos
@@ -114,7 +115,7 @@ class UsuarioRepo implements methodDB{
             //echo '<script>console.log('.$registro.');</script>';
             if ($registro){
                 $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-                echo json_encode($usuario);
+                //echo json_encode($usuario);
                 return $usuario;
             }
         } 

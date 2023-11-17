@@ -24,6 +24,24 @@ class IntentoRepo implements methodDB{
         }
         return null;
     }
+
+    function findByUserId($id){
+        $sql = "SELECT * FROM intento WHERE id_user=:id";
+        $statement = $this->conex->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        if ($this->conex!=null) {
+            $registro = $statement->fetchAll(PDO::FETCH_ASSOC);
+            // if ($registro){
+            //     $intento = new Intento($registro['id'], $registro['fechaInicio'], $registro['jsonP'], $registro['id_exam'], $registro['id_user']);
+            //     echo json_encode($intento);
+            //     return $intento;
+            // }
+            return $registro;
+        }
+        return null;
+    }
+
     
     function findAll(){
         $sql = "SELECT * FROM intento";

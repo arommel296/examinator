@@ -65,7 +65,7 @@ class PreguntaRepo implements methodDB{
     
     function save($object){
         $id=$object->getId();
-        if(isset($id)){
+        if($id!=""){
             return $this->update($object);
         }else{
             return $this->insert($object);
@@ -133,7 +133,7 @@ class PreguntaRepo implements methodDB{
         $statement->bindParam(':tipoUrl', $tipoUrl);
         $statement->bindParam(':id_dif', $id_dif);
         $statement->bindParam(':id_cat', $id_cat);
-        $statement->bindParam(':id', $id);
+        // $statement->bindParam(':id', $id);
         $statement->execute();
         if ($this->conex!=null) {
             return $statement->rowCount();

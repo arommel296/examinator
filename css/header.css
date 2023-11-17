@@ -7,3 +7,71 @@
     color:brown;
     display: flex;
 }
+
+/* ------------   nuevo ---------*/
+
+/* .menu {
+    width: 80%;
+    align-self: center;
+    height: fit-content;
+    font-size: large;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px;
+} */
+
+/* Dropdown */
+/* .dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(150, 150, 255);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content li {
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.logout {
+    font-size: medium;
+    height: 100%;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.logout a{
+    text-decoration: none;
+    color: white;
+    justify-self: center;
+    align-self: center;
+}
+
+.logout a:hover{
+   text-decoration: underline;
+} */
