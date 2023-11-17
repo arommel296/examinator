@@ -21,12 +21,6 @@
         <select id="dificultad">
         <option disabled selected>Selecciona la dificultad</option>
         </select>
-        <!-- <input type="radio" id="respuesta1" name="respuesta" value="resp1">
-        <label for="resp1">Respuesta 1</label><br>
-        <input type="radio" id="respuesta2" name="respuesta" value="resp2">
-        <label for="resp2">Respuesta 2</label><br>
-        <input type="radio" id="respuesta3" name="respuesta" value="resp3">
-        <label for="resp3">Respuesta 3</label> -->
         <p>Ruta o URL del recurso multimedia</p>
         <input type="text" id="url">
         <select id="tipoUrl">

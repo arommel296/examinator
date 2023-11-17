@@ -1,6 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
-// require_once 'UsuarioRepo.php';
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $repo=new UsuarioRepo();
     if (isset($_GET['menu'])) {
@@ -9,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $usuarios=[];
             foreach($resultado as $usuario){
                 $usuarios[]=$usuario;
-                //->toJSON();
             }
 
             header('Content-Type: application/json');
@@ -20,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $usuarios=[];
             foreach($resultado as $usuario){
                 $usuarios[]=$usuario;
-                //->toJSON();
             }
             header('Content-Type: application/json');
             echo json_encode($usuarios);

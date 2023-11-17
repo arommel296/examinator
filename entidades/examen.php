@@ -38,6 +38,7 @@ class Examen{
         $this->id_creador = $id_creador;
     }
 
+    //No lo uso
     public function toJSON(){
         return json_encode(get_object_vars($this));
     }

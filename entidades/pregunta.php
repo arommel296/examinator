@@ -107,6 +107,7 @@ class Pregunta{
         $this->id_cat = $id_cat;
     }
 
+    //No lo uso
     public function toJSON(){
         return json_encode(get_object_vars($this));
     }

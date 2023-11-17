@@ -4,14 +4,12 @@ require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.ph
 $exrepo=new ExamenRepo();
 $usurepo=new UsuarioRepo();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // $exrepo=new examenexrepo();
     if (isset($_GET['menu'])) {
         if($_GET['menu'] == "examenManual" || $_GET['menu'] == "examenAutomatico") {
             $resultado = $exrepo->findAll();
             $examenes=[];
             foreach($resultado as $examen){
                 $examenes[]=$examen;
-                //->toJSON();
             }
             header('Content-Type: application/json');
             echo json_encode($examenes);
@@ -39,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET)) {
         $id = $_GET["id"];
         $respuesta = $exrepo->deleteById($id);
-        echo '{"respuesta":"OK"}';
+        echo '{"respuesta":"200"}';
     } else{
-        echo '{"respuesta":"F"}';
+        echo '{"respuesta":"ERROR"}';
     }
 }

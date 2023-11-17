@@ -4,7 +4,6 @@ require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.ph
 $usurepo=new UsuarioRepo();
 $pregIntrepo=new PreguntasIntentoRepo();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // $intrepo=new intentointrepo();
     if (isset($_GET['menu'])) {
         if($_GET['menu'] == "examen") {
             $usuario = $_POST['usuario'];
@@ -12,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $intentos=[];
             foreach($resultado as $intento){
                 $intentos[]=$intento;
-                //->toJSON();
             }
             header('Content-Type: application/json');
             echo json_encode($intentos);
@@ -21,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_POST)) {
-        // $usuario = $_POST['usuario'];
         $datos=file_get_contents("php://input");
         $datosDecode=json_decode($datos, true); //Array asociativo con los datos del body de la request
         if (isset($datosDecode['idIntento'])) {
@@ -30,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $preguntas=[];
             foreach($registro as $pregunta){
                 $preguntas[]=$pregunta;
-                //->toJSON();
             }
 
             header('Content-Type: application/json');

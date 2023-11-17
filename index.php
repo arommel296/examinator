@@ -9,5 +9,4 @@ class Principal
     }
 }
 Principal::main();
-//echo $_SESSION['usuario'];
 ?>

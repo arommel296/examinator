@@ -1,4 +1,5 @@
 <?php
+//Es una prueba, no interviene en el proyecto
 $body=file_get_contents("php://input");
 // $_PUT=array();
 echo "<img src=$body>";

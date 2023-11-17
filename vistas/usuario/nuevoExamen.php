@@ -24,5 +24,4 @@ if (isset($_SESSION['usuario'])) {
     header('Location: ?menu=login');
     echo "La sesión de usuario no está establecida.";
 }
-//|| $_GET['menu'] != "examinar" || $_GET['menu'] != "examenAuto" || $_GET['menu'] != "examenManual"
 ?>

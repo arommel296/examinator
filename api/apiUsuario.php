@@ -1,11 +1,6 @@
 <?php
-//require_once '../helpers/autocargar.php';
-// require_once '../helpers/login.php';
-// require_once '../helpers/session.php';
-// require_once '../repositorios/usuarioRepo.php';
-// require_once '../entidades/usuario.php';
-// require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/utocargar.php";
 
+//No se usa en el proyecto, no hacer caso
 class ApiUsuario{
 
     static function loginUsuario($repo, $action) {
@@ -20,7 +15,7 @@ class ApiUsuario{
                     Login::login();
                     echo json_encode(['status' => '200']);
                 } else{
-                    echo json_encode(['status' => 'error', 'message' => 'Usuario o contraseña incorrectos']);
+                    echo json_encode(['status' => 'error', 'mensaje' => 'Usuario o contraseña incorrectos']);
                 }
             }
 
@@ -39,7 +34,7 @@ class ApiUsuario{
                 $password=$_POST['password'];
                 $usuario=$repo->findByName($nombreUsu);
                 if ($usuario) {
-                    echo json_encode(['status' => 'error', 'message' => 'El nombre de usuario ya está en uso']);
+                    echo json_encode(['status' => 'error', 'mensaje' => 'El nombre de usuario ya está en uso']);
                 } else{
                     $nuevoUsuario = new Usuario;
                     $nuevoUsuario->setNombre($nombreUsu);
@@ -63,10 +58,10 @@ class ApiUsuario{
             //Session::iniciaSesion();
             Login::login();
             $_SESSION['usuario'] = $usuario->getNombre();
-            echo json_encode(['status' => '200', 'message' => 'Inicio de sesión exitoso']);
+            echo json_encode(['status' => '200', 'mensaje' => 'Inicio de sesión exitoso']);
             return true;
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Usuario o contraseña incorrectos']);
+            echo json_encode(['status' => 'error', 'mensaje' => 'Usuario o contraseña incorrectos']);
             return false;
         }
     }

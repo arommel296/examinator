@@ -1,13 +1,8 @@
 <?php
-// require_once '../entidades/usuario.php';
-//require_once './interfaces/DbInterface.php';
-// require_once 'db.php';
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class UsuarioRepo implements methodDB{
 
-    // private $sql;
-    // private $result;
     private $conex;
 
     public function __construct() {
@@ -38,13 +33,7 @@ class UsuarioRepo implements methodDB{
         if ($this->conex!=null) {
             $usuarios = [];
             $registro = $statement->fetchAll(PDO::FETCH_ASSOC);
-            // while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
-            //     $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-            //     $usuarios[] = $usuario;
-            //     //->toJSON();
-            // }
-            
-            //echo json_encode($usuarios);
+
             return $registro;
         }
         echo json_encode(null);
@@ -84,19 +73,12 @@ class UsuarioRepo implements methodDB{
         return $this->deleteById($object->id);
     }
     function findByName($nombre){
-        //echo '<script>console.log('.$nombre.');</script>';
         $sql = "SELECT * FROM usuario WHERE nombre LIKE :nombre";
         $statement = $this->conex->prepare($sql);
         $statement->bindParam(':nombre', $nombre);
         $statement->execute();
         if ($this->conex!=null) {
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
-            //echo '<script>console.log('.$registro.');</script>';
-            // if ($registro){
-            //     $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-            //     echo json_encode($usuario);
-            //     return $usuario;
-            // }
             return $registro;
         } 
         echo json_encode(null);
@@ -104,7 +86,6 @@ class UsuarioRepo implements methodDB{
     }
 
     function findByNamePass($nombre, $pass){
-        //echo '<script>console.log('.$nombre.');</script>';
         $sql = "SELECT * FROM usuario WHERE nombre=:nombre AND password=:contra";
         $statement = $this->conex->prepare($sql);
         $statement->bindParam(':nombre', $nombre);
@@ -112,10 +93,10 @@ class UsuarioRepo implements methodDB{
         $statement->execute();
         if ($this->conex!=null) {
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
-            //echo '<script>console.log('.$registro.');</script>';
+
             if ($registro){
                 $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
-                //echo json_encode($usuario);
+
                 return $usuario;
             }
         } 
@@ -124,14 +105,13 @@ class UsuarioRepo implements methodDB{
     }
 
     function findByRol($rol){
-        //echo '<script>console.log('.$rol.');</script>';
         $sql = "SELECT * FROM usuario WHERE rol LIKE :rol";
         $statement = $this->conex->prepare($sql);
         $statement->bindParam(':rol', $rol);
         $statement->execute();
         if ($this->conex!=null) {
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
-            //echo '<script>console.log('.$registro.');</script>';
+
             if ($registro){
                 $usuario = new Usuario($registro['id'], $registro['nombre'], $registro['password'], $registro['rol'], $registro['foto']);
                 echo json_encode($usuario);
@@ -168,14 +148,13 @@ class UsuarioRepo implements methodDB{
     
     function insert($object){
         $sql = "INSERT into usuario(nombre, password) values(:nombre, :password)";
-        //$usuario=new Usuario();
         $nombre=$object->getNombre();
         $contrasena=$object->getPassword();
-        //echo $nombre;
+
         $statement = $this->conex->prepare($sql);
         $statement->bindParam(':nombre', $nombre);
         $statement->bindParam(':password', $contrasena);
-        //echo 'aaaa';
+
         if ($this->conex!=null) {
             return $statement->rowCount();
         } else {

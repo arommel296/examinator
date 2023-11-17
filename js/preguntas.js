@@ -1,3 +1,8 @@
+//Funciones para el crud de preguntas, y carga de dificultades, categorías, etc en los select
+
+//Al cargar las preguntas (refrescaPregunta) en el documento, se añade a cada una de las preguntas un evento
+//que al dispararse ejecutará esta función. Esta función pasa los datos de los campos de la pregunta pinchada a
+//los campos vacíos del formulario.
 function cargaPregunta(pregunta) {
     var formulario = document.getElementById("nuevaPregunta");
     formulario.querySelector("#idPreg").value = pregunta.id;
@@ -18,11 +23,13 @@ function cargaPregunta(pregunta) {
             formulario.querySelector(ids[i]).selected=true;
         }
     }
-    // formulario.querySelector("#correcta").selected = pregunta.correcta;
+
     formulario.querySelector("#url").value = pregunta.url;
     formulario.querySelector("#tipoUrl").value = pregunta.tipoUrl;
 }
 
+//Esta función, junto con rellenaSelect, va cargando (cada vez que cambia el contenido de los campos de respuesta: onchange)
+//las respuestas de la pregunta en el select de pregunta correcta, para poder seleccionarla.
 function rellenaPregunta() {
     var formulario = document.getElementById("nuevaPregunta");
     var resp1=formulario.querySelector("#resp1");
@@ -32,7 +39,6 @@ function rellenaPregunta() {
     resp2.addEventListener("change", (ev) => rellenaSelect(ev, "#op2"));
     resp3.addEventListener("change", (ev) => rellenaSelect(ev, "#op3"));
 }
-
 function rellenaSelect(evento, resp){
     evento.preventDefault();
     var formulario = document.getElementById("nuevaPregunta");
@@ -40,6 +46,7 @@ function rellenaSelect(evento, resp){
     formulario.querySelector(resp).value=evento.target.value;
 }
 
+//Esta función vacía el contenido del formulario para crear/modificar una pregunta
 function limpiaPregunta() {
     var formulario = document.getElementById("nuevaPregunta");
     formulario.querySelector("#enunciado").value = "";
@@ -53,6 +60,8 @@ function limpiaPregunta() {
     formulario.querySelector("#dificultad").value = "";
 }
 
+//Esta función hace una llamada AJAX a la api de pregunta (apiPregunta), le pasa el id de la pregunta seleccionada
+//(para ello hay que pulsar una de las preguntas existentes) y 
 function borraPregunta() {
     var formulario = document.getElementById("nuevaPregunta");
     var idPreg=formulario.querySelector("#idPreg").value;
@@ -60,7 +69,7 @@ function borraPregunta() {
     fetch("http://localhost/DEWESE/examinator/api/ApiPregunta.php?id="+idPreg, {
             method: "DELETE"
         })
-        .then(x => x.text())
+        .then((x) => x.json())
         .then(y => {
             console.log(y);
             refrescaPreguntas();
@@ -70,6 +79,8 @@ function borraPregunta() {
         limpiaPregunta();
 }
 
+//Esta pregunta hace otra llamada AJAX al servidor y le pasa mediante POST un json con todas las propiedades
+//de una pregunta, si el id de la pregunta está en el campo id (no es vacío) hace un insert, si no hace un update
 function guardaPregunta() {
     var formulario = document.getElementById("nuevaPregunta");
     var idPreg=formulario.querySelector("#idPreg");
@@ -120,17 +131,17 @@ function guardaPregunta() {
             }
         })
         .then(y => {
-    
-            refrescaPreguntas();
-            console.log("pregunta guardada");
 
+            refrescaPreguntas();
+            console.log("ok");
         });
 
         limpiaPregunta();
-        // refrescaPreguntas();
 }
 
-
+//Esta función carga todas las preguntas de la base de datos mediante una llamada AJAX al servidor.
+//Primero limpia las preguntas que había en el DOM y luego inserta todas las preguntas, así no hay que rcargar la página
+//si añadimos o borramos una pregunta
 async function refrescaPreguntas() {
     var preguntas = document.getElementById("preguntas");
     while (preguntas.firstChild) {
@@ -162,6 +173,7 @@ async function refrescaPreguntas() {
         });
 }
 
+//Función que carga las opciones (mediante llamada AJAX) de la base de datos en el select de categorías.
 async function refrescaCategorias() {
     var categorias = document.getElementById("categoria");
     const d=await fetch("http://localhost/DEWESE/examinator/api/apiCategoria.php?menu=examinar")
@@ -175,6 +187,7 @@ async function refrescaCategorias() {
             };
 }
 
+//Función que carga las opciones (mediante llamada AJAX) de la base de datos en el select de dificultades.
 async function refrescaDificultades() {
     var dificultades = document.getElementById("dificultad");
     const d=await fetch("http://localhost/DEWESE/examinator/api/ApiDificultad.php?menu=examinar")

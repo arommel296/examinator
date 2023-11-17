@@ -1,3 +1,11 @@
+//En este archivo js se produce la realización de un examen de la siguiente manera:
+//Al pulsar en el botón comenzar se carga la plantilla html de una pregunta (llamada AJAX al servidor),
+//tantas veces como preguntas tenga el examen.
+//Se cargan las preguntas de la base de datos mediante una llamada AJAX al servidor y se introducen en el html
+//Se generan tantos cuadrados como preguntas tenga el examen con el número de pregunta, para poder moverte más rápido
+//a la pregunta deseada.
+//Deja de mostrarse el botón comenzar, se muestra solo la primera pregunta y el botón de siguiente.
+
 window.addEventListener("load", function () {
     //Declaración de variables
     var cuerpo = document.getElementById("cuerpo");
@@ -34,10 +42,11 @@ window.addEventListener("load", function () {
     divCuadrados.setAttribute("grid-template-columns", "repeat(5, 20%)");
     main.appendChild(divCuadrados);
 
-    var pregActual;
-    var numPreg;
-    var respuestas=[];
-    var preguntas;
+    //Más Variables de trabajo
+    var pregActual; //Aquí se irá guardando la pregunta que se está visualizando
+    var numPreg; //Número de preguntas que tiene el examen
+    var respuestas=[]; //Array de datos en formato json
+    var preguntas; //Colección de elementos html, contiene los divs de las preguntas
 
     //Adición de eventos a los botones
     btnComenzar.addEventListener("click", comenzar);
@@ -45,8 +54,6 @@ window.addEventListener("load", function () {
     btnSiguiente.addEventListener("click", nuevaPreg);
     btnEnviar.addEventListener("click", enviarExamen);
     btnEliminar.addEventListener("click", borraRespuesta);
-
-    //btnBorrar.addEventListener("click", borrar);
 
 
     //Función comenzar, hace lo siguiente:
@@ -59,8 +66,6 @@ window.addEventListener("load", function () {
         var contenedor = document.createElement("div");
         contenedor.innerHTML = a;
         var pregunta = contenedor.firstChild;
-        // var checkbox = contenedor.getElementsByClassName("dudosa")[0];
-        // checkbox.addEventListener("change", dudosa);
 
         const d = await fetch("http://localhost/DEWESE/examinator/api/ApiIntento.php", {
             method: "POST",
@@ -106,23 +111,23 @@ window.addEventListener("load", function () {
             pregAux.getElementsByClassName("opcion2")[0].innerHTML = y[i].resp2;
             pregAux.getElementsByClassName("opcion3")[0].innerHTML = y[i].resp3;
             divExamen.appendChild(pregAux);
+
             var op = [y[i].resp1,y[i].resp2,y[i].resp3];
             var radios = pregAux.querySelectorAll('input[type="radio"]');
-            console.log('Pregunta ' + i + ', radios.length: ' + radios.length);
+
             for (var j = 0; j < 3; j++) {
                 radios[j].setAttribute("name", "respuesta" + i);
                 radios[j].setAttribute("id", +3 * i + j + 1);
                 radios[j].nextSibling.setAttribute("for", "respuesta" + i);
                 radios[j].setAttribute("value",op[j]);
-                //radios[j].classList.add("no-selec");
-                console.log('Pregunta ' + i + ', radio ' + j + ', name: ' + radios[j].name + ', id: ' + radios[j].id);
             }
+
             pregAux.setAttribute("id", "preg-" + (i));
-            // pregAux.setAttribute("id","preg-");
             var recurso = pregAux.getElementsByClassName("recurso")[0];
             var img = document.createElement("img");
             var video = document.createElement("video");
             var url = y[i].url;
+
             if (y[i].tipo == "image") {
                 img.setAttribute("src", url);
                 recurso.appendChild(img);
@@ -137,29 +142,22 @@ window.addEventListener("load", function () {
             } 
             respuestas.push(pos);
         }
-        // })
+
         console.log(divExamen);
         preguntas=divExamen.childNodes;
-        //numPreg=preguntas.length-1;
         console.log(numPreg);
         pregActual=0;
         console.log(preguntas[pregActual]);
-        // if (pregunta.previousElementSibling != null) {
-        //     btnSiguiente.style.display = "";
-        // }
-        // if (pregunta.nextElementSibling != null) {
-        //     btnAnterior.style.display = "";
-        // }
-        // if (pregunta.nextElementSibling == null) {
-        //     btnEnviar.style.display = "";
-        // }
-        //btnSiguiente.style.display = "";
+
         btnComenzar.style.display = "none";
         btnEliminar.style.display = "";
         btnSiguiente.style.display = "";
 
     }
 
+
+    //Función que esconde la pregunta actual y deja ver la pregunta anterior a la actual.
+    //Si es la primera esconde los botones innecesarios y deja ver los necesarios
     function antePreg() {
         recogeRespuesta();
         preguntas[pregActual].style.display="none";
@@ -174,6 +172,8 @@ window.addEventListener("load", function () {
         pregActual--;
     }
 
+    //Función que esconde la pregunta actual y deja ver la pregunta siguiente a la actual.
+    //Si es la primera esconde los botones innecesarios y deja ver los necesarios
     function nuevaPreg() {
         recogeRespuesta();
         preguntas[pregActual].style.display="none";
@@ -189,6 +189,7 @@ window.addEventListener("load", function () {
 
     }
 
+    //Función que guarda la respuesta marcada por el usuario (en la pregunta actual) en el array de preguntas (contiene json)
     function recogeRespuesta() {
         try {
             var valor=preguntas[pregActual].querySelector('input[name="respuesta'+pregActual+'"]:checked').value;
@@ -199,10 +200,11 @@ window.addEventListener("load", function () {
         console.log(respuestas);
     }
 
+    //Función que hace una llamada AJAX al servidor, actualizando el intento (introduce en la bdd el array de json respuestas)
     function enviarExamen() {
-        var intJson=JSON.stringify(preguntas);
-        console.log(intJson);
-        let datos={intJ: respuestas,
+        var intJ=JSON.stringify(respuestas);
+        console.log(intJ);
+        let datos={intJson: respuestas,
         idIntento:3};
         console.log(JSON.stringify(datos));
         fetch("http://localhost/DEWESE/examinator/api/ApiIntento.php", {
@@ -219,15 +221,16 @@ window.addEventListener("load", function () {
 
     }
 
+    //Función que esconde la pregunta actual y deja ver la pregunta pulsada
     function visualizaPreg() {
         recogeRespuesta();
         divCuadrados.style.display="";
-        //console.log(preguntas[pregActual]);
+
         preguntas[pregActual].style.display="none";
-        //console.log(parseInt(this.getAttribute("preg")));
+
         var nPrg=parseInt(this.getAttribute("preg"));
         preguntas[nPrg].style.display="";
-        //pregActual=this.id;
+
         if ((nPrg)==(0)) {
             btnAnterior.style.display = "none";
             btnSiguiente.style.display = "";
@@ -259,19 +262,14 @@ window.addEventListener("load", function () {
         }
     }
 
-    function mezclaRespuestas(arrayResp) {
-        for (let i = arrayResp.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [arrayResp[i], arrayResp[j]] = [arrayResp[j], arrayResp[i]];
-        }
-    }
-
+    //Función que cambia el color del borde del cuadrado que representa la pregunta con el checkbox de pregunta dudosa 
+    //marcado
     function dudosa() {
         if (this.checked) {
             console.log(divCuadrados.childNodes[pregActual]);
             divCuadrados.childNodes[pregActual].style.borderColor = "red";  
         } else {
-            // Si el checkbox no está marcado, quita el color del borde
+            // Si el checkbox no está marcado, vuelve a poner el borde en negro
             divCuadrados.childNodes[pregActual].style.borderColor = "black";
         }
     }

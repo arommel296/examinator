@@ -1,5 +1,4 @@
 <?php
-//include_once'C:\xampp\php\PEAR';
 class Autocargar{
     private static function autocargador($clase){
         $carpeta="";

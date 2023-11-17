@@ -9,10 +9,6 @@ class Db{
     private static $user = 'alvaro';
     private static $pass = 'alvaro';
 
-    // public function __construct() {
-    //     //$this->conexion = $conexion;
-    // }
-
     // Método getter para la conexión
     public static function getConexion() {
         return self::$conexion;

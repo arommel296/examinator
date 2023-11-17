@@ -1,3 +1,5 @@
+//No se usa en el proyecto, era mi fichero de pruebas para la realización de examen
+
 window.addEventListener("load", function () {
 var btnComenzar = document.getElementById("comenzar");
     var divExamen = document.getElementById("examen");
@@ -9,23 +11,15 @@ var btnComenzar = document.getElementById("comenzar");
     btnSiguiente.style.display="none";
     btnAnterior.style.display="none";
 
-//<form id="examen" method="post" action="">
-/* <input type="submit" value="Enviar" id="enviar">
-</form> */
-
     btnComenzar.addEventListener("click", comenzar);
     btnAnterior.addEventListener("click", antePreg);
     btnSiguiente.addEventListener("click", nuevaPreg);
-
-    //btnBorrar.addEventListener("click", borrar);
 
     function comenzar() {
         fetch("plantillas/preguntas.html")
             .then(x => x.text())
             .then(y => {
                 var contenedor = document.createElement("div");
-                // contenedor.class="pregunta";
-                // contenedor.method="post";
                 contenedor.innerHTML = y;
                 var pregunta = contenedor.firstChild;
 
@@ -49,10 +43,8 @@ var btnComenzar = document.getElementById("comenzar");
                             for (var j = 0; j < 3; j++) {
                                     radios[j].setAttribute("name","respuesta"+i);
                                     radios[j].setAttribute("id",+3*i+j+1);
-                                    //radios[j].classList.add("no-selec");
                                     console.log('Pregunta ' + i + ', radio ' + j + ', name: ' + radios[j].name+', id: ' + radios[j].id);
                             }
-                            //pregAux.setAttribute("id","preg-"+i+1);
                             pregAux.setAttribute("id","preg-");
                             var recurso = pregAux.getElementsByClassName("recurso")[0];
                             var img = document.createElement("img");

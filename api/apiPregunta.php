@@ -2,14 +2,12 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 $repo=new PreguntaRepo();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // $repo=new PreguntaRepo();
     if (isset($_GET['menu'])) {
         if($_GET['menu'] == "examenManual" || $_GET['menu'] == "nuevaPregunta") {
             $resultado = $repo->findAll();
             $preguntas=[];
             foreach($resultado as $pregunta){
                 $preguntas[]=$pregunta;
-                //->toJSON();
             }
             header('Content-Type: application/json');
             echo json_encode($preguntas);

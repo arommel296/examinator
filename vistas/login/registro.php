@@ -14,12 +14,8 @@
             $usuario = new Usuario();
             $usuario->setNombre($_POST['usuario']);
             $usuario->setPassword($_POST['password1']);
-            //var_dump($usuario);
-            // echo $usuario->getNombre();
-            // var_dump($_POST);
+
             $repo->insert($usuario);
-            //$url=$_GET['returnurl'];
-            //header("location:?menu=login");
         }
     }
 ?>

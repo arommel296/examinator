@@ -1,7 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
-//include_once '\interfaces\dbInterface.php';
 class ExamenRepo implements methodDB{
     private $conex;
     private $errores=[];
@@ -28,7 +27,7 @@ class ExamenRepo implements methodDB{
     }
     
     function findByName($name) {
-        //Si no lo pongo me da error.
+        //Si no creo esta función da error por la interface methodDB, aunque esta interface ya no tiene este método abstracto
     }
 
     function findAll(){

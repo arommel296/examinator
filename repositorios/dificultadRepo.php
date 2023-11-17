@@ -31,15 +31,9 @@ class DificultadRepo implements methodDB{
         $statement->execute();
         if ($this->conex!=null) {
             $dificultades = [];
-            $registro = $statement->fetchAll(PDO::FETCH_ASSOC);
-            // while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
-            //     $dificultad = new Dificultad($registro['id'], $registro['nombre']);
-            //     $dificultades[] = $dificultad;
-            // }
-            //echo json_encode($dificultades);
+            $registro = $statement->fetchAll(PDO::FETCH_ASSOC);//no me funcionaba con while
             return $registro;
         }
-        //echo json_encode(null);
         return null;
     }
     

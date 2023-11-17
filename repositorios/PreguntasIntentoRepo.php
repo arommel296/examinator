@@ -1,7 +1,4 @@
 <?php
-// require_once '../entidades/usuario.php';
-//require_once './interfaces/DbInterface.php';
-// require_once 'db.php';
 require_once $_SERVER['DOCUMENT_ROOT']."/DEWESE/examinator/helpers/autocargar.php";
 
 class PreguntasIntentoRepo{
@@ -24,27 +21,13 @@ class PreguntasIntentoRepo{
         return null;
     }
 
-    // function saveById($id){
-    //     if(isset($id)){
-    //         return $this->update($object);
-    //     }else{
-    //         return $this->insert($object);
-    //     }
-    // }
 
     function update($id, $jsonP){
         $sql = "UPDATE intento SET jsonP = :jsonP WHERE id = :id";
         $statement = $this->conex->prepare($sql);
 
         $jsonP = json_encode($jsonP);
-        // $id = $object->getId();
-        // $fechaInicio = $object->getFechaInicio();
-        // $id_exam = $object->getId_exam();
-        // $id_user = $object->getId_user();
-        // $jsonP = $object->getJsonP();
-        // $statement->bindParam(':fechaInicio', $fechaInicio);
-        // $statement->bindParam(':id_exam', $id_exam);
-        // $statement->bindParam(':id_user', $id_user);
+
         $statement->bindParam(':jsonP', $jsonP);
         $statement->bindParam(':id', $id);
         $statement->execute();
@@ -78,7 +61,6 @@ class PreguntasIntentoRepo{
         $statement->bindParam(':tipoUrl', $tipoUrl);
         $statement->bindParam(':id_dif', $id_dif);
         $statement->bindParam(':id_cat', $id_cat);
-        // $statement->bindParam(':id', $id);
         $statement->execute();
         if ($this->conex!=null) {
             return $statement->rowCount();

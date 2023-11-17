@@ -27,6 +27,7 @@ class Categoria{
         $this->nombre = $nombre;
     }
 
+    //No lo uso
     public function toJSON(){
         return json_encode(get_object_vars($this));
     }

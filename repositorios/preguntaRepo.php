@@ -16,10 +16,7 @@ class PreguntaRepo implements methodDB{
         $statement->execute();
         if ($this->conex!=null) {
             $registro = $statement->fetch(PDO::FETCH_ASSOC);
-            // if ($registro) {
-            //     $pregunta = new Pregunta($registro['id'], $registro['enunciado'], $registro['resp1'], $registro['resp2'], $registro['resp3'], $registro['correcta'], $registro['url'], $registro['tipoUrl'], $registro['id_dif'], $registro['id_cat']);
-            // return $pregunta;
-            // }
+
             return $registro;
         }
         return null;
@@ -32,11 +29,6 @@ class PreguntaRepo implements methodDB{
         if ($this->conex!=null) {
             $preguntas = [];
             $registro = $statement->fetchAll(PDO::FETCH_ASSOC);
-            // while($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
-            //     $pregunta = new Pregunta($registro['id'], $registro['enunciado'], $registro['resp1'], $registro['resp2'], $registro['resp3'], $registro['correcta'], $registro['url'], $registro['tipoUrl'], $registro['id_dif'], $registro['id_cat']);
-            //     $preguntas[] = $pregunta;
-            // }
-            //echo json_encode($preguntas);
             return $registro;
         }
         echo json_encode(null);
@@ -71,14 +63,6 @@ class PreguntaRepo implements methodDB{
             return $this->insert($object);
         }
     }
-
-    // function saveById($id){
-    //     if(isset($id)){
-    //         return $this->update($object);
-    //     }else{
-    //         return $this->insert($object);
-    //     }
-    // }
 
     function update($object){
         $sql = "UPDATE pregunta set enunciado = :enunciado, resp1 = :resp1, resp2 = :resp2, resp3 = :resp3, correcta = :correcta, url = :url, tipoUrl = :tipoUrl, id_dif = :id_dif, id_cat = :id_cat where id=:id";
@@ -133,7 +117,6 @@ class PreguntaRepo implements methodDB{
         $statement->bindParam(':tipoUrl', $tipoUrl);
         $statement->bindParam(':id_dif', $id_dif);
         $statement->bindParam(':id_cat', $id_cat);
-        // $statement->bindParam(':id', $id);
         $statement->execute();
         if ($this->conex!=null) {
             return $statement->rowCount();

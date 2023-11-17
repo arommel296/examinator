@@ -58,6 +58,7 @@ class Intento{
         $this->id_user = $id_user;
     }
 
+    //No lo uso
     public function toJSON(){
         return json_encode(get_object_vars($this));
     }
