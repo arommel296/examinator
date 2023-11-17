@@ -4,7 +4,8 @@
     </a>
 <?php
 // 
-if ($_GET['menu'] != "login" || $_GET['menu'] != "registro" || $_GET['menu']!="") {
+if (isset($_GET['menu'])) {
+    if ($_GET['menu'] != "login" || $_GET['menu'] != "registro" || $_GET['menu']!="") {
     Session::iniciaSesion();
     //echo $_SESSION['usuario'];
     if (isset($_SESSION['usuario'])) {
@@ -51,5 +52,7 @@ if ($_GET['menu'] != "login" || $_GET['menu'] != "registro" || $_GET['menu']!=""
     echo $menu;
     }
 }
+}
+
 ?>
 </header>

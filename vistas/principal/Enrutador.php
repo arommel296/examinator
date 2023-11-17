@@ -38,6 +38,8 @@ class Enrutador{
             if ($_GET['menu'] == "examen") {
                 require_once './vistas/usuario/examen.php';
             }
+        } else{
+            header("location: ?menu=login");
         }
     }
 }
