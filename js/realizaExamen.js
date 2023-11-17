@@ -201,18 +201,22 @@ window.addEventListener("load", function () {
 
     function enviarExamen() {
         var intJson=JSON.stringify(preguntas);
+        console.log(intJson);
+        let datos={intJ: respuestas,
+        idIntento:3};
+        console.log(JSON.stringify(datos));
         fetch("http://localhost/DEWESE/examinator/api/ApiIntento.php", {
-            method: "PUT",
-            body: intJson,
+            method: "POST",
+            body: JSON.stringify(datos),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
         .then(y => {
-
-
+            return y.text();
         });
+
     }
 
     function visualizaPreg() {

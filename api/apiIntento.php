@@ -41,8 +41,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 } elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
     $datos=file_get_contents("php://input");//recojo las respuestas del intento en texto plano
     $datosDecode=json_decode($datos, true);
-    if (isset($datosDecode["intJson"])) {
-        
+    if (isset($datosDecode["intJson"])&&isset($datosDecode["idIntento"])) {
+        $idIntento=$datosDecode["idIntento"];
+        $jsonP=$datosDecode["intJson"];
+        $registro = $pregIntrepo->update($idIntento, $jsonP);
+        if ($registro) {
+            echo '{"respuesta":"200"}';
+        }else{
+            echo '{"respuesta":"ERROR"}';
+        }
+    }else{
+        echo '{"respuesta":"ERROR"}';
     }
 
 } elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){

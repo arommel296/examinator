@@ -32,36 +32,29 @@ class PreguntasIntentoRepo{
     //     }
     // }
 
-    function update($object){
-        $sql = "UPDATE intento set enunciado = :enunciado, resp1 = :resp1, resp2 = :resp2, resp3 = :resp3, correcta = :correcta, url = :url, tipoUrl = :tipoUrl, id_dif = :id_dif, id_cat = :id_cat where id=:id";
+    function update($id, $jsonP){
+        $sql = "UPDATE intento SET jsonP = :jsonP WHERE id = :id";
         $statement = $this->conex->prepare($sql);
-        $id=$object->getId();
-        $enunciado=$object->getEnunciado();
-        $resp1=$object->getResp1();
-        $resp2=$object->getResp2();
-        $resp3=$object->getResp3();
-        $correcta=$object->getCorrecta();
-        $url=$object->getUrl();
-        $tipoUrl=$object->getTipoUrl();
-        $id_dif=$object->getId_dif();
-        $id_cat=$object->getId_cat();
-        $statement->bindParam(':enunciado', $enunciado);
-        $statement->bindParam(':resp1', $resp1);
-        $statement->bindParam(':resp2', $resp2);
-        $statement->bindParam(':resp3', $resp3);
-        $statement->bindParam(':correcta', $correcta);
-        $statement->bindParam(':url', $url);
-        $statement->bindParam(':tipoUrl', $tipoUrl);
-        $statement->bindParam(':id_dif', $id_dif);
-        $statement->bindParam(':id_cat', $id_cat);
+
+        $jsonP = json_encode($jsonP);
+        // $id = $object->getId();
+        // $fechaInicio = $object->getFechaInicio();
+        // $id_exam = $object->getId_exam();
+        // $id_user = $object->getId_user();
+        // $jsonP = $object->getJsonP();
+        // $statement->bindParam(':fechaInicio', $fechaInicio);
+        // $statement->bindParam(':id_exam', $id_exam);
+        // $statement->bindParam(':id_user', $id_user);
+        $statement->bindParam(':jsonP', $jsonP);
         $statement->bindParam(':id', $id);
         $statement->execute();
-        if ($this->conex!=null) {
+        if ($this->conex != null) {
             return $statement->rowCount();
         } else {
             return false;
         }
     }
+    
     
     function insert($object){
         $sql = "INSERT into intento(resp1, resp2, resp3, correcta, url, tipoUrl, id_dif, id_cat) values(:enunciado, :resp1, :resp2, :resp3, :correcta, :url, :tipoUrl, :id_dif, :id_cat)";

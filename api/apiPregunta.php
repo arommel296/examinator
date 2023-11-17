@@ -44,6 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $respuesta = $repo->deleteById($id);
         echo '{"respuesta":"200"}';
     } else{
-        echo '{"respuesta":"F"}';
+        echo '{"respuesta":"ERROR"}';
     }
 }
