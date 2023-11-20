@@ -1,3 +1,4 @@
+<div class="creaPreguntas">
 <div id="nuevaPregunta">
     <form action="" method="post">
         <input type="text" id="idPreg" style="display: none;">
@@ -9,6 +10,7 @@
         <textarea name="" id="resp2" cols="90" rows="3" maxlength="200"></textarea>
         <p>Respuesta 3</p>
         <textarea name="" id="resp3" cols="90" rows="3" maxlength="200"></textarea>
+        <div>
         <select id="correcta">
             <option disabled selected>Selecciona la opción correcta</option>
             <option id="op1"></option>
@@ -21,6 +23,7 @@
         <select id="dificultad">
         <option disabled selected>Selecciona la dificultad</option>
         </select>
+        </div>
         <p>Ruta o URL del recurso multimedia</p>
         <input type="text" id="url">
         <select id="tipoUrl">
@@ -29,10 +32,14 @@
             <option value="video">Video</option>
         </select>
     </form>
-    <button id="btnLimpiar">Limpiar</button>
-    <button id="btnBorrar">Borrar</button>
-    <button id="btnGuardar">Guardar</button>
+    <div>
+        <button id="btnLimpiar">Limpiar</button>
+        <button id="btnBorrar">Borrar</button>
+        <button id="btnGuardar">Guardar</button>
+    </div>
+    
 </div>
-<div id="preguntas">
+<div id="preguntas" class="alumnos">
 
+</div>
 </div>

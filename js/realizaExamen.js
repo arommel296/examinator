@@ -10,9 +10,9 @@ window.addEventListener("load", function () {
     //Declaración de variables
     var cuerpo = document.getElementById("cuerpo");
     cuerpo.removeAttribute("class");
-    cuerpo.classList.add("cuerpo3");
+    // cuerpo.classList.add("cuerpo3");
     var main = document.getElementsByTagName("main")[0];
-    main.classList.add("cuerpo3");
+    // main.classList.add("cuerpo3");
     var btnComenzar = document.getElementById("comenzar");
     var divExamen = document.getElementById("examen");
     divExamen.classList.add("cuerpo2");
@@ -36,10 +36,10 @@ window.addEventListener("load", function () {
     //Creación de cuadrados para las preguntas
     var divCuadrados=document.createElement("div");
     divCuadrados.id="cuadrados";
-    divCuadrados.style.display="grid";
-    divCuadrados.style.width="5em";
-    divCuadrados.style.height="5em";
-    divCuadrados.setAttribute("grid-template-columns", "repeat(5, 20%)");
+    // divCuadrados.style.display="grid";
+    // divCuadrados.style.width="8em";
+    // divCuadrados.style.height="8em";
+    // divCuadrados.setAttribute("grid-template-columns", "repeat(5, 20%)");
     main.appendChild(divCuadrados);
 
     //Más Variables de trabajo
@@ -87,6 +87,7 @@ window.addEventListener("load", function () {
             //Creación de los cuadrados para viajar a las preguntas
             var nuevoCuadrado=document.createElement("span");
             nuevoCuadrado.style.border="0.1em solid black";
+            nuevoCuadrado.classList.add("cuadradito");
             divCuadrados.appendChild(nuevoCuadrado);
             nuevoCuadrado.innerHTML=i+1;
             nuevoCuadrado.setAttribute("preg",i);

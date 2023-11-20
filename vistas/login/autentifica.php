@@ -1,11 +1,21 @@
-<form method="post" action="">
+<!-- <form method="post" action="">
     <label for="usuario">Usuario:</label><br>
     <input type="text" id="usuario" name="usuario"><br>
     <label for="password">Contraseña:</label><br>
     <input type="password" id="password" name="password"><br>
     <input type="submit" name="submit" value="Iniciar sesión">
 </form>
-<p class='text-center'><a href='?menu=registro'>Crear una Cuenta</a></p>
+<p class='text-center'><a href='?menu=registro'>Crear una Cuenta</a></p> -->
+<div class="inicioSesion-container">
+    <form method="post"class="formInicioSesion" action="">
+        <label for="usuario" >Usuario:</label><br>
+        <input autocomplete="on" class="input-form" type="text" placeholder="Usuario" id="usuario" name="usuario"><br>
+        <label for="password" >Contraseña:</label><br>
+        <input class="input-form" type="password"  placeholder="Contraseña" id="password" name="password"><br>
+        <a href='?menu=registro'>Crear una Cuenta</a>
+        <input type="submit" name="submit" value="Iniciar sesión">
+    </form>
+</div>
 <?php
     session_unset();
     Session::cierraSesion();

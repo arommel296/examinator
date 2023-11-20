@@ -1,0 +1,23 @@
+.creaPreguntas{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 48% 48%;
+    overflow: hidden;
+}
+
+#nuevaPregunta{
+    display: grid;
+
+    margin: 2%;
+    width: 98%;
+}
+
+#preguntas{
+    margin: 1%;
+    width: 98%;
+}
+
+textarea{
+    width: 80%;
+}

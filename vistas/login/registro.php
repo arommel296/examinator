@@ -14,21 +14,24 @@
             $usuario = new Usuario();
             $usuario->setNombre($_POST['usuario']);
             $usuario->setPassword($_POST['password1']);
-
+            //var_dump($usuario);
+            // echo $usuario->getNombre();
+            // var_dump($_POST);
             $repo->insert($usuario);
+            //$url=$_GET['returnurl'];
+            //header("location:?menu=login");
         }
     }
 ?>
-    <form method="post" action="">
-        <label for="usuario">Usuario:</label><br>
-        <input type="text" id="usuario" name="usuario"><br>
-        <?= $valida->ImprimirError('usuario') ?>
-        <label for="password1">Contraseña:</label><br>
-        <input type="password" id="password1" name="password1"><br>
-        <?= $valida->ImprimirError('password1') ?>
-        <label for="password2">Repetir Contraseña:</label><br>
-        <input type="password" id="password2" name="password2"><br>
-        <?= $valida->ImprimirError('password2') ?>
+<div class="inicioSesion-container">
+    <form method="post" class="formInicioSesion" action="Inicio.php">
+        <label for="usuario" >Usuario:</label><br>
+        <input autocomplete="on" class="input-form" type="text" placeholder="Usuario" id="usuario" name="usuario"><br>
+        <label for="password" >Contraseña:</label><br>
+        <input class="input-form" type="password"  placeholder="Contraseña" id="password" name="password"><br>
+        <label for="password" >Repite la contraseña:</label><br>
+        <input class="input-form" type="password"  placeholder="Contraseña" id="password" name="password"><br>
         <a href="?menu=login">Ya tengo cuenta</a>
-        <input type="submit" name="submit" value="Registrarme">
+        <input type="submit" name="submit" value="Registrarse">
     </form>
+</div>

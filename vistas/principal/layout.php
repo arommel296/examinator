@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/principal.css">
     <link rel="stylesheet" href="./css/loginRegistro.css">
+    <link rel="stylesheet" href="./css/nuevoExamen.css">
+    <link rel="stylesheet" href="./css/nuevaPregunta.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gudea&family=Hind&display=swap" rel="stylesheet">
     <script src="./js/preguntas.js"></script>
     <script src="./js/nuevaPregunta.js"></script>
     <script src="./js/cargaAlumnos.js"></script>
@@ -19,8 +24,8 @@
     <?php
         require_once './vistas/principal/header.php';
     ?>
-    <section>
-        <div id="cuerpo" class="cuerpo2 cuerpo3">
+    <section class="content">
+        <div id="cuerpo" >
         <?php
            require_once './vistas/principal/Enrutador.php';
            Enrutador::enruta();
